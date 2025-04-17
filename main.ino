@@ -49,20 +49,20 @@ void loop() {
 }
 
 int add16bits(int a, int b) {
+    int sum = 0;  // Initialize sum
+    int cout = 0; // Initialize carry out
+    
     for (int i = 0; i < 16; i++) {
         int bitA = (a >> i) & 1; // Extract the ith bit of a
         int bitB = (b >> i) & 1; // Extract the ith bit of b
-        int cin = (i == 0) ? 0 : (cout); // Carry in for the next bit
+        int cin = (i == 0) ? 0 : cout; // Carry in for the next bit
         int* result = add1bit(bitA, bitB, cin); // Call the add1bit function
         sum |= (result[0] << i); // Set the ith bit of sum
         cout = result[1]; // Update carry out
+        delete[] result;  // Free the allocated memory
     }
     Serial.print("Final Sum: ");
     return sum; // Return the final sum
-    // Print the final sum and carry out
-    
-
-  
 }
 
 int* add1bit(int a, int b, int cin) {
