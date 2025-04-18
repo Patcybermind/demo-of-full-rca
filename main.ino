@@ -44,6 +44,22 @@ void setup() {
 }
 
 void loop() {
+  int a = 0, b = 1; // Initialize the first two Fibonacci numbers
+  while (true) {
+    int next = add16bits(a, b); // Calculate the next Fibonacci number
+    if (next < a || next < b) { // Check for rollover
+      Serial.println("Rollover detected!");
+      break;
+    }
+    Serial.print("Fibonacci: ");
+    Serial.println(next, DEC); // Print the Fibonacci number
+    a = b; // Update a
+    b = next; // Update b
+    delay(100); // Delay for readability
+  }
+  while (true) {
+    // Do nothing, just wait
+  }
     
 
 }
@@ -71,7 +87,7 @@ int* add1bit(int a, int b, int cin) {
     digitalWrite(B_PIN, b);
     digitalWrite(CIN_PIN, cin);
 
-    delay(10); // Wait for the circuit to stabilize
+    delay(30); // Wait for the circuit to stabilize
 
     bool sum = digitalRead(SUM_PIN);  // Read SUM
     bool cout = digitalRead(COUT_PIN); // Read COUT
